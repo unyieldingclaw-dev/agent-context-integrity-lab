@@ -16,6 +16,8 @@ import uuid
 
 ROOT = Path(__file__).resolve().parent.parent
 OLLAMA_ORIGIN = "http://127.0.0.1:11434"  # Deliberately fixed to local Ollama.
+# Do not route loopback prompts through any proxy configured on the host.
+OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 RUNNER_VERSION = "0.1.0"
 INSTRUCTIONS = {
     "C0": (
@@ -54,13 +56,13 @@ def post_json(endpoint: str, payload: dict, timeout_seconds: int = 600) -> dict:
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+    with OPENER.open(request, timeout=timeout_seconds) as response:
         return json.loads(response.read().decode("utf-8"))
 
 
 def get_json(endpoint: str, timeout_seconds: int = 15) -> dict:
     request = urllib.request.Request(OLLAMA_ORIGIN + endpoint, method="GET")
-    with urllib.request.urlopen(request, timeout=timeout_seconds) as response:
+    with OPENER.open(request, timeout=timeout_seconds) as response:
         return json.loads(response.read().decode("utf-8"))
 
 
