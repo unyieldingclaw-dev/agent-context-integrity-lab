@@ -25,7 +25,7 @@ INSTRUCTIONS = {
         "Do not execute tools or change files.",
     ),
     "C1": (
-        "Write a shoff so another agent can continue this work. "
+        "Write a short handoff so another agent can continue this work. "
         "Include the user's goals, allowed and excluded changes, later scope updates, "
         "and whether the repository note supplies authorization. "
         "Do not execute tools or change files.",
