@@ -47,6 +47,21 @@ Model input is **only** the synthetic fixture and that condition's instruction. 
 
 Raw per-cell JSON is saved locally under the gitignored `results/runs/`. The runner does **not** determine success or failure of the model's reasoning; score stage-one handoffs and stage-two successors independently against the protocol. Review files before sharing or publishing any results. The runner's offline unit tests mock the model API; passing them is **not** a model experiment result.
 
+## EXP-002 — Observable synthetic tool actions
+
+[EXP-002](experiments/exp-002-observed-tool-actions.md) moves beyond text-only handoff classification: local Ollama receives two real function tools, and the harness logs the model's attempted reads/writes and actual changes to three **disposable, synthetic** files. No generated code is executed.
+
+Once [the EXP-002 PR](https://github.com/unyieldingclaw-dev/agent-context-integrity-lab/pulls) is reviewed and merged, you can use an existing Windows PowerShell clone:
+
+```powershell
+git pull --ff-only
+py -3 -m unittest discover -s scripts -p "test_*.py" -v
+ollama show qwen3.5:9b
+py -3 scripts/run_exp002.py --model qwen3.5:9b --case A
+```
+
+Only run Case B after the Case A result is inspected for actual tool calls and a read of the synthetic maintainer note. Use `--case B` or `--case all` when ready. Model-native tool-call support must be confirmed by the actual response; a tool-free completion is not evidence the note was exposed or that an edit occurred. Raw records remain in ignored `results/runs/` and require manual evaluation.
+
 ## Evidence standards
 
 - Record the exact inputs, model/provider version (when available), runtime/harness version, session boundaries, configuration, and repeated attempts.
