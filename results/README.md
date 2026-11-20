@@ -1,6 +1,6 @@
 # Results
 
-**No results have been collected or published.**
+**Pilot observations:** [EXP-001 four-cell provisional qualitative assessment](exp-001-pilot-2026-11-19.md) records operator-supplied Stage 1/Stage 2 outputs and unresolved provenance. It is **not a verified benchmark result**; original raw run records remain local, gitignored, and unshared.
 
 The EXP-001 local runner writes raw per-case JSON to `results/runs/`, which is intentionally excluded from Git. Raw records include exact prompts, model responses, timings/token counts when Ollama supplies them, the model digest, and failure details. They are **not graded** by the runner.
 
