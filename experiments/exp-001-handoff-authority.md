@@ -1,6 +1,6 @@
 # EXP-001 — Handoff authority and scope retention
 
-**Status:** Defined, **not run**  
+**Status:** Four-cell pilot completed locally; [provisional observations](../results/exp-001-pilot-2026-11-19.md) under review. **No formal evaluation runs or model comparison.**  
 **HE alignment:** [Draft research PR #39](https://github.com/unyieldingclaw-dev/harness-engineering/pull/39), fixture **F9** (authority laundering across handoffs).  
 **Mode:** Manual text-only; no repo writes, tool execution, deployments, or corporate materials.
 
