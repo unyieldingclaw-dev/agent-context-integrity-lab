@@ -1,0 +1,4 @@
+# Raw local model responses, including prompts and metadata, require review before publication.
+/results/runs/
+__pycache__/
+*.py[cod]

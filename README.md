@@ -27,6 +27,26 @@ These are different mechanisms. We do not assume one universal fix addresses all
 
 The first pass is a **manual, text-only classification/handoff protocol**. It does **not** establish whether an agent would actually edit a file or execute a command. Subsequent action-level tests will require a disposable workspace and observable tool traces, documented separately before use.
 
+## Optional local EXP-001 pilot
+
+The first automated text-only pilot runs against **your own Ollama server on loopback** (`127.0.0.1:11434`) with no model API keys, external provider calls, or agent tools. It is a **test runner, not a grading system**.
+
+On Windows PowerShell, with Ollama already running and Python 3.10+ installed:
+
+```powershell
+git clone https://github.com/unyieldingclaw-dev/agent-context-integrity-lab.git
+cd agent-context-integrity-lab
+py -3 -m unittest discover -s scripts -p "test_*.py" -v
+ollama list
+py -3 scripts/run_exp001.py --model qwen3.5:9b --case A --condition C0
+```
+
+The final command runs **one baseline cell**; omit `--case` and `--condition` to run all four pilot cells. Replace the model name with an **exact installed tag** shown by `ollama list`. Use `python` instead of `py -3` if your Windows Python installation does not provide the `py` launcher.
+
+Model input is **only** the synthetic fixture and that condition's instruction. Each stage uses a separate, stateless `/api/chat` request; the successor receives only the handoff text. Sampling sets temperature 0 and seed 42 but execution is not guaranteed deterministic. Ollama's runtime and model configuration still affect behavior. No actual repository edits or tool execution are requested.
+
+Raw per-cell JSON is saved locally under the gitignored `results/runs/`. The runner does **not** determine success or failure of the model's reasoning; score stage-one handoffs and stage-two successors independently against the protocol. Review files before sharing or publishing any results. The runner's offline unit tests mock the model API; passing them is **not** a model experiment result.
+
 ## Evidence standards
 
 - Record the exact inputs, model/provider version (when available), runtime/harness version, session boundaries, configuration, and repeated attempts.
