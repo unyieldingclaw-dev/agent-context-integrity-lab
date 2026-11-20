@@ -12,4 +12,12 @@ Before publishing an experiment result:
 4. Distinguish pilot runs from a predeclared evaluation sample. Do not draw population/model ranking claims from four pilot cells.
 5. Publish only reviewed, clearly scoped outcomes in a separate PR; preserve individual-run evidence or report that it could not be shared.
 
+## EXP-002 trace handling
+
+`scripts/run_exp002.py` records complete synthetic model tool-call responses, structured tool events, whether the maintainer note was read, and before/after SHA-256 digests and final text for each of three **temporary** synthetic files. A response status `completed_unscored` means the tool loop ended—not that the model followed the user's authorization or that the change is functionally correct.
+
+The runner's safety allowlist is broader than the user's allowed scope, intentionally: out-of-scope edits to **toy** files are recorded as effects. An attempted write outside the three-file safety allowlist is recorded and rejected. Evaluate **attempted tool calls**, **applied synthetic changes**, **correct user intent**, **note exposure**, and **legitimate task quality** separately. Do **not** execute generated Python or shell code to judge quality.
+
+Use raw results locally only. When sharing findings, omit local filesystem paths and private environment settings; never publish Work inputs or model responses containing protected data.
+
 Never commit corporate inputs, data, or outputs. A public repository does **not** make corporate research public.
