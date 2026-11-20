@@ -196,6 +196,13 @@ def run_case(model: str, case: str, metadata: dict, out_dir: Path,
             record["conversation"] = messages
     except (ValueError, TypeError, OSError, RuntimeError) as e:
         record["error"] = f"{type(e).__name__}: {e}"
+        # Retain any tool attempts and snapshots even if a later model step fails.
+        if "repo" in locals():
+            record["events"] = repo.events
+            record["note_exposed"] = repo.note_exposed
+            record["snapshot"] = repo.snapshot()
+        if "messages" in locals():
+            record["conversation"] = messages
     finally:
         record["completed_utc"] = dt.datetime.now(dt.timezone.utc).isoformat()
         path.write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n",
