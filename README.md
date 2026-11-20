@@ -2,7 +2,7 @@
 
 A small, public research lab for **reproducible, falsifiable experiments** about context integrity in AI engineering workflows.
 
-**Status:** Foundation and experiment designs only. **No experiment results have been produced.**
+**Status:** First EXP-001 four-cell pilot completed locally; [provisional qualitative observations](results/exp-001-pilot-2026-11-19.md) are under review. **No formal evaluation or model comparison has been established.**
 
 ## What this is
 
